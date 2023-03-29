@@ -1,11 +1,18 @@
 package game;
 
+import java.util.LinkedList;
+
+import javax.swing.JTextField;
+
 public class Matriz {
 
 	//debo pasar como n el largo de la matriz
 	//en el main debo crear dos arreglos el primero para la matriz que sera siempre cuadrada se supone
 	//el primer arreglo es para filas y el segundo para columnas
 	
+	int[] arregloArmadoFilas = {10,7,10,8};
+	
+	int[] arregloArmadoColumnas = {9,9,8,9};
 	
 	public int[] crearArreglo(int n) {
 		int[] arreglo = new int[n];
@@ -16,7 +23,19 @@ public class Matriz {
 		return arreglo;
 	}
 	
-
+	
+	
+	public int[][] agregarNumerosDeListaAMatriz(int[][] matriz, LinkedList<JTextField> textFieldLista){
+		int listaPosicion = 0;
+		for(int i = 0; i < matriz.length; i++) {
+			for(int j = 0; j < matriz[i].length;j++) {
+				if(listaPosicion < textFieldLista.size())
+				matriz[i][j] = Integer.parseInt(textFieldLista.get(listaPosicion++).getText());
+			}
+		}
+		return matriz;
+		
+	}
 	
 	public int sumarFilas(int[][] mat, int fila) {
 		int suma = 0;
@@ -42,6 +61,13 @@ public class Matriz {
 		return valorArray == sumarCol(mat, col);
 	}
 	
-	
+	public String esGanador(boolean variable) {
+		if(variable!=true) {
+			return "Hay valores que no corresponden";
+		}
+		else {
+			return "Ganaste!";
+		}
+	}
 	
 }
