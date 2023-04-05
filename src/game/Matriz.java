@@ -80,36 +80,6 @@ public class Matriz {
 	}
 	
 
-	public void main(String[] args) {
-		int[][] r = new int[4][2];
-		//r = crearArregloSumaFilasAleatorio();
-//		int[] fila = obtenerResultadoFilasDeNivel(valoresASumar);
-//		int[] sum = obtenerResultadoColumnasDeNivel(valoresASumar);
-		
-		System.out.println();
-//		for(int i = 0; i < 4; i++) {
-//			for(int j = 0; j<2;j++) {
-//				System.out.print(valoresRandom[i][j] + " ");		
-//			}	
-//			System.out.println();
-//		}
-//		System.out.println();
-//		for(int i = 0; i < 4; i++) {
-//			for(int j = 0; j<2;j++) {
-//				System.out.print(valoresASumar[i][j] + " ");		
-//			}	
-//			System.out.println();
-//		}
-//		System.out.println();
-//		
-//		for(int i = 0; i < 4; i++) {
-//			System.out.print("fila: " + fila[i] + " ");
-//		}
-//		System.out.println();
-//		for(int i = 0; i < 4; i++) {
-//			System.out.print(" col: "+ sum[i] + " ");
-//		}
-	}
 
 	public int[][] agregarNumerosDeListaAMatriz(int[][] matriz, LinkedList<JTextField> textFieldLista){
 		int listaPosicion = 0;

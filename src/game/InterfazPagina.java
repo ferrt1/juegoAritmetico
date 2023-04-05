@@ -196,7 +196,7 @@ public class InterfazPagina {
 		mejorTiempo = new JLabel();
 		File archivo = new File ("test.txt");
 		try {
-			leerArchivo j = new leerArchivo(archivo);
+			LeerArchivo j = new LeerArchivo(archivo);
 			FileInputStream fis =new FileInputStream(archivo);
 			Scanner scanner = new Scanner(fis);
 			String linea = scanner.nextLine();
@@ -351,9 +351,9 @@ public class InterfazPagina {
 		
 		if(labelTiempo2<mejorTiempo2) {
 			try {
-				guardarArchivoTxt2 g2 = new guardarArchivoTxt2(labelTiempo.getText());
+				GuardarArchivoTxt g2 = new GuardarArchivoTxt(labelTiempo.getText());
 				File archivo = new File ("test.txt");
-				leerArchivo j = new leerArchivo(archivo);
+				LeerArchivo j = new LeerArchivo(archivo);
 			} catch (IOException e1) {
 				e1.printStackTrace();
 			}

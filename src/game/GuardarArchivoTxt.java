@@ -5,9 +5,9 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 
-public class guardarArchivoTxt2 {
+public class GuardarArchivoTxt {
 
-	public guardarArchivoTxt2(String s)throws IOException {
+	public GuardarArchivoTxt(String s)throws IOException {
 		try {
 			FileOutputStream fos = new FileOutputStream("test.txt");
 			OutputStreamWriter out = new OutputStreamWriter(fos);

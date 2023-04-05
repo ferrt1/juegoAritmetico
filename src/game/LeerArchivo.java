@@ -5,17 +5,15 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
-public class leerArchivo {
+public class LeerArchivo {
 	private File archivo;
-	private guardarArchivoTxt2 j;
+	private GuardarArchivoTxt j;
 	
-	public leerArchivo(File archivo) throws FileNotFoundException {
+	public LeerArchivo(File archivo) throws FileNotFoundException {
 		
 		try {
 			FileInputStream fis =new FileInputStream(archivo);
 			Scanner scanner = new Scanner(fis);
-			
-
 			scanner.close();
 		}
 		catch (FileNotFoundException e) {
