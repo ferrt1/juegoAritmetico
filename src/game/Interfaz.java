@@ -46,7 +46,7 @@ public class Interfaz {
 			public void run() {
 				try {
 					Interfaz window = new Interfaz();
-					window.frmJuegoAritmetico.setVisible(true);
+					window.frmJuegoAritmetico.setVisible(false);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -61,9 +61,9 @@ public class Interfaz {
 		initialize();
 	}
 	
-
 	
-	public void createPanelHorizontal(int nivelActual) {
+	
+	private void createPanelHorizontal(int nivelActual) {
 		JPanel panelArregloHorizontal = new JPanel();
 		
 		panelArregloHorizontal.setForeground(new Color(251, 194, 252));
@@ -87,7 +87,7 @@ public class Interfaz {
 		
 	}
 	
-	public void createPanelVertical(int nivelActual) {
+	private void createPanelVertical(int nivelActual) {
 		JPanel panelArregloVertical = new JPanel();
 		panelArregloVertical.setBorder(new LineBorder(new Color(251, 194, 252), 3, true));
 		panelArregloVertical.setBackground(new Color(251, 194, 252));

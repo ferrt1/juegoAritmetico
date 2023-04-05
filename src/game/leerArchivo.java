@@ -11,15 +11,11 @@ public class leerArchivo {
 	
 	public leerArchivo(File archivo) throws FileNotFoundException {
 		
-		
 		try {
 			FileInputStream fis =new FileInputStream(archivo);
 			Scanner scanner = new Scanner(fis);
 			
-//			while(scanner.hasNextLine()) {
-//				String linea = scanner.nextLine();
-//				System.out.println(linea);
-//			}
+
 			scanner.close();
 		}
 		catch (FileNotFoundException e) {
