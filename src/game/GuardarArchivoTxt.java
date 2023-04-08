@@ -11,9 +11,7 @@ public class GuardarArchivoTxt {
 		try {
 			FileOutputStream fos = new FileOutputStream("test.txt");
 			OutputStreamWriter out = new OutputStreamWriter(fos);
-			
 			out.write(s);
-			
 			out.close();
 		}
 		catch(FileNotFoundException e){

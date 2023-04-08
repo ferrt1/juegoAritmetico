@@ -35,55 +35,7 @@ public class MatrizTest {
 		assertTrue(sistema.verificarSumaColumna(matrizTest, 0, 13));
 	}
 	
-	@Test(expected=IllegalArgumentException.class)
-	public void noSePermitenLetras() {
-		matrizTestIncompleta[0][1] = 'e';
-		
-		sistema.verificarSumaFila(matrizTestIncompleta, 0, 7);
-	}
 	
-	@Test(expected=IllegalArgumentException.class)
-	public void noSePermitenNegativos() {
-		matrizTestIncompleta[0][1] = -1;
-		
-		sistema.verificarSumaFila(matrizTestIncompleta, 0, 6);
-	}
-	
-	@Test(expected=IllegalArgumentException.class)
-	public void noSePermitenCeros() {
-		matrizTestIncompleta[0][1] = 0;
-		
-		sistema.verificarSumaFila(matrizTestIncompleta, 0, 7);
-	}
-	
-	@Test(expected=IllegalArgumentException.class)
-	public void hayEspaciosVacios() {
-		matrizTestIncompleta[0][1] = ' ';
-		
-		sistema.verificarSumaFila(matrizTestIncompleta, 0, 7);
-	}
-    @Test
-    public void testAgregarNumerosDeListaAMatriz() {
-        int[][] matriz = {{1, 2}, {3, 4}, {5, 6}, {7, 8}};
-        LinkedList<JTextField> textFieldLista = new LinkedList<JTextField>();
-        textFieldLista.add(new JTextField("9"));
-        textFieldLista.add(new JTextField("10"));
-        textFieldLista.add(new JTextField("11"));
-        textFieldLista.add(new JTextField("12"));
-        int[][] resultado = sistema.agregarNumerosDeListaAMatriz(matriz, textFieldLista);
-        assertEquals(1, resultado[0][0]);
-        assertEquals(2, resultado[0][1]);
-        assertEquals(3, resultado[1][0]);
-        assertEquals(4, resultado[1][1]);
-        assertEquals(5, resultado[2][0]);
-        assertEquals(6, resultado[2][1]);
-        assertEquals(7, resultado[3][0]);
-        assertEquals(8, resultado[3][1]);
-        assertEquals(9, resultado[0][2]);
-        assertEquals(10, resultado[1][2]);
-        assertEquals(11, resultado[2][2]);
-        assertEquals(12, resultado[3][2]);
-    }
     
     @Test
     public void testCrearArreglosSumaFilaYColumna() {

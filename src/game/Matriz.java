@@ -6,16 +6,6 @@ import javax.swing.JTextField;
 
 public class Matriz {
 	
-	
-//	private int[][] valoresASumar = crearArreglosSumaFilaYColumna();
-	
-	
-	//debo pasar como n el largo de la matriz
-	//en el main debo crear dos arreglos el primero para la matriz que sera siempre cuadrada se supone
-	//el primer arreglo es para filas y el segundo para columnas
-	
-	
-	
 
 	public int[] crearArreglo(int n) {
 		int[] arreglo = new int[n];

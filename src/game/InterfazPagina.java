@@ -28,11 +28,11 @@ import javax.swing.border.LineBorder;
 
 public class InterfazPagina {
 	
-	private Menu menu;
+	private JuegoMain menu;
 	private Matriz matriz = new Matriz();
 	private Cronometro c;
 	private JLabel labelTiempo;
-//	private static int nivel = 1;
+	
 	//	Objetos de la Interfaz
 	private JFrame frmJuegoAritmetico;
 	
@@ -318,17 +318,6 @@ public class InterfazPagina {
 		if(!comprobar) {
 			btnReintentar.setVisible(true);
 		}
-//		if(nivel !=6 && comprobar) {
-//			
-//			nivel+=1;
-//			btnSiguiente.setVisible(true);
-//			btnReintentar.setVisible(false);
-//			btnFinalizar.setVisible(false);
-//		}
-//		if(nivel == 6 && comprobar) {
-//			btnFinalizar.setVisible(true);
-//			btnReintentar.setVisible(false);
-//		}
 		if(comprobar) {
 			btnReintentar.setVisible(false);
 			btnFinalizar.setVisible(true);
@@ -382,6 +371,7 @@ public class InterfazPagina {
 			textField.setBorder(null);
 			dataTextFieldLista.add(textField);
 		}
+		
 		//		Agrego el arreglo donde se encuentra el resultado que debo sumar verticalmente
 		//		Agrego el arreglo donde se encuentra el resultado que debo sumar horizontalmente
 
@@ -448,7 +438,7 @@ public class InterfazPagina {
 		btnFinalizar.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				menu = new Menu();
+				menu = new JuegoMain();
 				menu.setVisible(true);
 				frmJuegoAritmetico.dispose();
 			}
