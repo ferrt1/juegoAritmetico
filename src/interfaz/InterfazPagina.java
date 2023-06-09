@@ -1,4 +1,4 @@
-package game;
+package interfaz;
 
 import java.awt.Color;
 
@@ -12,7 +12,9 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Scanner;
 
 import javax.swing.JButton;
@@ -24,12 +26,13 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
+import game.*;
 
 
 public class InterfazPagina {
 	
 	private JuegoMain menu;
-	private Matriz matriz = new Matriz();
+	private JuegoMatriz matriz = new JuegoMatriz();
 	private Cronometro c;
 	private JLabel labelTiempo;
 	
@@ -46,12 +49,7 @@ public class InterfazPagina {
 	private JButton btnReintentar;
 	
 	//	Listas para poder acceder a cada elemento sin perder su posicion\
-	private int[][] matrizRecibida;
 	
-	private int[][] matrizAleatoria = matriz.crearArreglosSumaFilaYColumna();
-	
-	private int[] arregloDerecha = matriz.obtenerResultadoFilasDeNivel(matrizAleatoria);
-	private int[] arregloAbajo = matriz.obtenerResultadoColumnasDeNivel(matrizAleatoria);
 	private LinkedList<JTextField> dataTextFieldLista = new LinkedList<JTextField>();
 	private LinkedList<JLabel> arregloSumaFila = new LinkedList<JLabel>();
 	private LinkedList<JLabel> arregloSumaColumna = new LinkedList<JLabel>();
@@ -119,7 +117,7 @@ public class InterfazPagina {
 			jLabelHorizontal.setHorizontalAlignment(SwingConstants.CENTER);
 			panelArregloHorizontal.add(jLabelHorizontal);
 			jLabelHorizontal.setOpaque(true);
-			jLabelHorizontal.setText(Integer.toString(arregloDerecha[i]));
+			jLabelHorizontal.setText(Integer.toString(matriz.getArregloDerecha()[i]));
 			arregloSumaColumna.add(jLabelHorizontal);
 		}
 		
@@ -141,7 +139,7 @@ public class InterfazPagina {
 			jLabelVertical.setHorizontalAlignment(SwingConstants.CENTER);
 			jLabelVertical.setOpaque(true);
 			panelArregloVertical.add(jLabelVertical);
-			jLabelVertical.setText(Integer.toString(arregloAbajo[i]));
+			jLabelVertical.setText(Integer.toString(matriz.getArregloAbajo()[i]));
 			arregloSumaFila.add(jLabelVertical);
 		}
 	}
@@ -214,20 +212,26 @@ public class InterfazPagina {
 		contentPane.add(mejorTiempo);
 	}
 	
-	public void crearYAgregarMatriz() {
-		try {
-			matriz.agregarNumerosDeListaAMatriz(matrizRecibida, dataTextFieldLista);
-			//Oculto el boton cuando comprueba los resultados
-			btnComprobar.setVisible(false);
-			cambiarJTextFieldEditable(false);
-			
-		} catch (Exception e2) {
-			JOptionPane.showMessageDialog(new JFrame(), 
-					"La matriz no puede tener espacios vacios, letras o ceros");
-			cambiarJTextFieldEditable(false);
-			btnComprobar.setVisible(false);
-		}
-	}
+	  public void crearYAgregarMatriz() {
+	        try {
+	            // Crear una lista de enteros a partir de los JTextFields
+	            List<Integer> numeros = new ArrayList<>();
+	            for (JTextField field : dataTextFieldLista) {
+	                numeros.add(Integer.parseInt(field.getText()));
+	            }
+
+	            matriz.agregarNumerosDeListaAMatriz(numeros);
+	            //Oculto el boton cuando comprueba los resultados
+	            btnComprobar.setVisible(false);
+	            cambiarJTextFieldEditable(false);
+	            
+	        } catch (Exception e2) {
+	            JOptionPane.showMessageDialog(new JFrame(), 
+	                    "La matriz no puede tener espacios vacios, letras o ceros");
+	            cambiarJTextFieldEditable(false);
+	            btnComprobar.setVisible(false);
+	        }
+	    }
 	
 	public void cambiarColorVerdeTextField(JTextField textField) {
 		textField.setBackground(new Color(198, 222, 111));
@@ -240,78 +244,65 @@ public class InterfazPagina {
 	}
 	
 	
-	public boolean comprobarSumaFilas() {
-		boolean comprobar = true;
+	public void cambiarColorSiSumaBienOMalFilas() {
 		for(int i = 0; i < 4; i++) {
-			if(matriz.verificarSumaFila(matrizRecibida, 0,  arregloAbajo[0])) {
+			if(matriz.verificarSumaFila(0,  matriz.getArregloAbajo()[0])) {
 				cambiarColorVerdeTextField(dataTextFieldLista.get(i));
 			}
 			else {
 				cambiarColorRojoTextField(dataTextFieldLista.get(i));
-				comprobar = false;
 			}
 		}
 		for(int i = 4; i < 8; i++) {
-			if(matriz.verificarSumaFila(matrizRecibida, 1,  arregloAbajo[1])){
+			if(matriz.verificarSumaFila(1,  matriz.getArregloAbajo()[1])){
 				cambiarColorVerdeTextField(dataTextFieldLista.get(i));
 			}
 			else {
 				cambiarColorRojoTextField(dataTextFieldLista.get(i));
-				comprobar = false;
 			}
 		}
 		for(int i = 8; i < 12; i++) {
-			if(matriz.verificarSumaFila(matrizRecibida, 2,  arregloAbajo[2])) {
+			if(matriz.verificarSumaFila(2,  matriz.getArregloAbajo()[2])) {
 				cambiarColorVerdeTextField(dataTextFieldLista.get(i));
 			}
 			else {
 				cambiarColorRojoTextField(dataTextFieldLista.get(i));
-				comprobar = false;
 			}
 
 		}
 		for(int i = 12; i < 16; i++) {
-			if(matriz.verificarSumaFila(matrizRecibida, 3,  arregloAbajo[3])) {
+			if(matriz.verificarSumaFila(3,  matriz.getArregloAbajo()[3])) {
 				cambiarColorVerdeTextField(dataTextFieldLista.get(i));
 			}
 			else {
 				cambiarColorRojoTextField(dataTextFieldLista.get(i));
-				comprobar = false;
 			}
 		}
-		return comprobar;
 	}
 	
 //	Al asumir que la matriz es de 4x4 puedo recorrer hasta 16 veces el arreglo dataTextField y saber cada posicion
 	
-	public boolean comprobarSumaColumnas() {
-		boolean comprobar = true;
-		
+	public void cambiarColorSiSumaBienOMalColumnas() {
 		for(int i = 0; i < 16; i+=4) {
-			if(!matriz.verificarSumaColumna(matrizRecibida, 0, arregloDerecha[0])) {
+			if(!matriz.verificarSumaColumna(0, matriz.getArregloDerecha()[0])) {
 				cambiarColorRojoTextField(dataTextFieldLista.get(i));
-				comprobar = false;
 			}
 		}
 		for(int i = 1; i < 16; i+=4) {
-			if(!matriz.verificarSumaColumna(matrizRecibida, 1, arregloDerecha[1])){
+			if(!matriz.verificarSumaColumna(1, matriz.getArregloDerecha()[1])){
 				cambiarColorRojoTextField(dataTextFieldLista.get(i));
-				comprobar = false;
 		}
 		}
 		for(int i = 2; i < 16; i+=4) {
-			if(!matriz.verificarSumaColumna(matrizRecibida, 2, arregloDerecha[2])) {
+			if(!matriz.verificarSumaColumna(2, matriz.getArregloDerecha()[2])) {
 				cambiarColorRojoTextField(dataTextFieldLista.get(i));
-				comprobar = false;
 			}
 		}
 		for(int i = 3; i < 16; i+=4) {
-			if(!matriz.verificarSumaColumna(matrizRecibida, 3, arregloDerecha[3])) {
+			if(!matriz.verificarSumaColumna(3, matriz.getArregloDerecha()[3])) {
 				cambiarColorRojoTextField(dataTextFieldLista.get(i));
-				comprobar = false;
 			}
 		}
-		return comprobar;
 	}
 	
 	public void cambiarBotones(boolean comprobar) {
@@ -349,99 +340,94 @@ public class InterfazPagina {
 		}
 	}
 	
+	private void crearYAgregarTextFields() {
+	    for(int i = 0; i<16; i++) {
+	        JTextField textField = new JTextField();
+	        panelMatriz.add(textField);
+	        textField.setHorizontalAlignment(SwingConstants.CENTER);
+	        textField.setFont(new Font("Microsoft New Tai Lue", Font.BOLD, 26));
+	        textField.setForeground(new Color(251, 194, 252));
+	        textField.setBackground(new Color(53, 28, 77));
+	        textField.setBorder(null);
+	        dataTextFieldLista.add(textField);
+	    }
+	}
+	
+	private void crearYConfigurarBotones() {
+	    btnComprobar = new JButton("COMPROBAR");
+	    crearBoton(btnComprobar);
+	    btnReintentar = new JButton("REINTENTAR");
+	    crearBoton(btnReintentar);
+	    btnFinalizar = new JButton("MENU");
+	    crearBoton(btnFinalizar);
+	    btnMenu = new JButton("MENU");
+	    crearBoton(btnMenu);
+	}
+	
+	private void asignarAccionesBotones() {
+	    btnComprobar.addActionListener(new ActionListener() {
+	        @Override
+	        public void actionPerformed(ActionEvent e) {
+	            crearYAgregarMatriz();
+	            cambiarColorSiSumaBienOMalFilas();
+	            cambiarColorSiSumaBienOMalColumnas();
+
+	            boolean comprobar = matriz.comprobarTodoJuego();
+	            if (comprobar) {
+	                manejarGuardadoTiempo();
+	            }
+	            cambiarBotones(comprobar);
+	        }
+	    });
+
+	    btnReintentar.addActionListener(new ActionListener() {
+	        @Override
+	        public void actionPerformed(ActionEvent e) {
+	            limpiarMatriz();
+	            btnComprobar.setVisible(true);
+	            cambiarJTextFieldEditable(true);
+	            btnReintentar.setVisible(false);
+	        }
+	    });
+
+	    btnMenu.addActionListener(new ActionListener() {
+	        @Override
+	        public void actionPerformed(ActionEvent e) {
+	            // Acciones del botón Menú
+	        }
+	    });
+
+	    btnFinalizar.addActionListener(new ActionListener() {
+	        @Override
+	        public void actionPerformed(ActionEvent e) {
+	            menu = new JuegoMain();
+	            menu.setVisible(true);
+	            frmJuegoAritmetico.dispose();
+	        }
+	    });
+	}
+	
+	private void inicializarJFrame() {
+	    frmJuegoAritmetico = new JFrame();
+	    frmJuegoAritmetico.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	    frmJuegoAritmetico.setBounds(100, 100, 765, 561);
+	}
+	
 	/**
 	 * Create the frame.
 	 */
-	private void initialize() {
-		matrizRecibida = new int[4][4];
-		frmJuegoAritmetico = new JFrame();
-		frmJuegoAritmetico.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frmJuegoAritmetico.setBounds(100, 100, 765, 561);
-		crearPanelDeContenido();
-		crearPanelMatriz();
 	
-//		Agrego los textField al Panel Matriz
-		for(int i = 0; i<16; i++) {
-			JTextField textField = new JTextField();
-			panelMatriz.add(textField);
-			textField.setHorizontalAlignment(SwingConstants.CENTER);
-			textField.setFont(new Font("Microsoft New Tai Lue", Font.BOLD, 26));
-			textField.setForeground(new Color(251, 194, 252));
-			textField.setBackground(new Color(53, 28, 77));
-			textField.setBorder(null);
-			dataTextFieldLista.add(textField);
-		}
-		
-		//		Agrego el arreglo donde se encuentra el resultado que debo sumar verticalmente
-		//		Agrego el arreglo donde se encuentra el resultado que debo sumar horizontalmente
-
-		crearPanelArregloHorizontal();
-		crearPanelArregloVertical();
-
-		//JLabel donde se va a posicionar el mejor tiempo
-		crearLabelMejorTiempo();
-		//JLabel donde se va a posicionar el tiempo
-		crearLabelTiempo();
-		//		Creacion de boton para Comprobar el estado
-		btnComprobar = new JButton("COMPROBAR");
-		crearBoton(btnComprobar);
-		btnReintentar = new JButton("REINTENTAR");
-		crearBoton(btnReintentar);
-		btnFinalizar = new JButton("MENU");
-		crearBoton(btnFinalizar);
-		btnMenu = new JButton("MENU");
-		crearBoton(btnMenu);
-
-		btnComprobar.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				boolean comprobar = true;
-				crearYAgregarMatriz();
-				//Chequeo la suma de las filas
-				comprobarSumaFilas();
-				if(!comprobarSumaFilas()) {
-					comprobar = false;
-				}
-				//Chequeo suma columnas
-				comprobarSumaColumnas();
-				if(!comprobarSumaColumnas()) {
-					comprobar = false;
-				}
-				if(comprobar) {
-					manejarGuardadoTiempo();
-				}
-				cambiarBotones(comprobar);
-			}
-		});
-
-		btnReintentar.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				limpiarMatriz();
-				btnComprobar.setVisible(true);
-				cambiarJTextFieldEditable(true);
-				btnReintentar.setVisible(false);
-			}
-		});
-		
-		//Acciones del BOTTON SIGUIENTE
-
-		btnMenu.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				
-			}
-		});
-		
-		//Acciones del BOTTON FINALIZAR
-
-		btnFinalizar.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				menu = new JuegoMain();
-				menu.setVisible(true);
-				frmJuegoAritmetico.dispose();
-			}
-		});
+	
+	private void initialize() {
+	    inicializarJFrame();
+	    crearPanelDeContenido();
+	    crearPanelMatriz();
+	    crearYAgregarTextFields();
+	    crearPanelArregloHorizontal();
+	    crearPanelArregloVertical();
+	    crearLabelMejorTiempo();
+	    crearLabelTiempo();
+	    crearYConfigurarBotones();
+	    asignarAccionesBotones();
 	}
 }

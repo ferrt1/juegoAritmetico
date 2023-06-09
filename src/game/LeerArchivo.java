@@ -19,7 +19,6 @@ public class LeerArchivo {
 		catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
-		
 	}
 	
 	
